@@ -21,7 +21,7 @@ class AwesomeBottomNavigationClipper extends CustomClipper<Path> {
 
         final curveControlOffset = sectionWidth * 0.45;
 
-        final topPadding = topPaddingFactor * size.height + 5;
+        final topPadding = topPaddingFactor * size.height;
 
         final double factor = 1;
 
