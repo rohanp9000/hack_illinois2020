@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:math';
 
 void main() => runApp(MyApp());
 
@@ -11,16 +14,28 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  LatLng home = new LatLng(37.4219983, -122.084 );
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
-  Position pos = null;
+  Position pos;
   void getLocation() async {
     pos = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+  }
+
+  void main() {
+    const oneSec = const Duration(seconds:1);
+    new Timer.periodic(oneSec, timer_callback);
+  }
+
+  void timer_callback(Timer t) {
+    this.getLocation();
+    LatLng curr_loc = new LatLng(pos.latitude, pos.longitude);
+
+    double dist = sqrt(pow(1852*(curr_loc.latitude - home.latitude), 2) + pow(1852*(curr_loc.longitude - home.longitude), 2));
+    print(dist);
   }
 
   List<Marker> allMarkers = [];
@@ -28,19 +43,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState(){
     super.initState();
+    main();
     allMarkers.add(Marker(
       markerId: MarkerId('myMarker'),
-      position:LatLng(40.102137, -88.236737),
+      position: LatLng(40.102137, -88.236737),
       draggable:true,
-      onDragEnd:((value){
-        getLocation();
-        print(pos.toString());
+      onDragEnd:((value) {
+        home = new LatLng(value.latitude, value.longitude);
       }),
-      onTap:(){
-        getLocation();
-        print(pos.toString());
-      },
-
     ));
 
   }
