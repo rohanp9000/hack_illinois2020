@@ -20,9 +20,6 @@ class MapState extends State<Map> {
   static const kGoogleApiKey = "AIzaSyAmiskK0obvHxJ4O8zBKtl7NRf_fsQ9i-g";
   static GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
-
-
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -48,7 +45,7 @@ class MapState extends State<Map> {
   List<Marker> allMarkers = [];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     main();
     allMarkers.add(Marker(
@@ -83,63 +80,33 @@ class MapState extends State<Map> {
     );
   }
 
-//  Future<Null> displayPrediction(Prediction p) async {
-//    if (p != null) {
-//      PlacesDetailsResponse detail =
-//      await _places.getDetailsByPlaceId(p.placeId);
-//
-//      var placeId = p.placeId;
-//      double lat = detail.result.geometry.location.lat;
-//      double lng = detail.result.geometry.location.lng;
-//
-//      var address = await Geocoder.local.findAddressesFromQuery(p.description);
-//
-//      print(lat);
-//      print(lng);
-//    }
-//  }
-
-  Future<Null> showDetailPlace(String placeId) async {
-    print("+++++");
-    if (placeId != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) =>
-            Text(placeId)),
-      );
-    }
-  }
-
+  bool val = false;
   Widget _searchMap(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height/2,
-      width: MediaQuery.of(context).size.width,
-      alignment: Alignment.center,
-      child: RaisedButton(
-        onPressed: () async {
-          print("button pressed");
-          // show input autocomplete with selected mode
-          // then get the Prediction selected
-          Prediction p = await PlacesAutocomplete.show(
-            context: context,
-            apiKey: kGoogleApiKey,
-            mode: Mode.overlay, // Mode.fullscreen
-            language: "en",
-            radius: 100000000);
-          showDetailPlace(p.placeId);
+      child: Switch(
+        value: val,
+        onChanged: (bool new_value) {
+          setState(() {
+            val = new_value;
+          });
+          allMarkers.removeLast();
+          allMarkers.add(Marker(
+            markerId: MarkerId('myMarker'),
+            position: home,
+            draggable:val,
+            onDragEnd:((value) {
+              home = new LatLng(value.latitude, value.longitude);
+            }),
+          ));
         },
-        child: Text('Find address')
-
-
-        )
+      ),
     );
-
   }
 
   @override
   Widget _buildGoogleMap(BuildContext context){
     return Container(
-      height: MediaQuery.of(context).size.height/2,
+      height: MediaQuery.of(context).size.height*2/3,
       width: MediaQuery.of(context).size.width,
       child: GoogleMap(
 
@@ -153,6 +120,5 @@ class MapState extends State<Map> {
       ),
     );
   }
-
 
 }

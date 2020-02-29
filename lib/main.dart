@@ -15,7 +15,7 @@ class myApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xff6200ee),
       ),
-      home: FallDetect(),
+      home: Map(),
 
 
     );
