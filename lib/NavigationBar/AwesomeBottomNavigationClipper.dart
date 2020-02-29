@@ -21,16 +21,18 @@ class AwesomeBottomNavigationClipper extends CustomClipper<Path> {
 
         final curveControlOffset = sectionWidth * 0.45;
 
-        final topPadding = topPaddingFactor * size.height;
+        final topPadding = topPaddingFactor * size.height + 5;
 
-        path.lineTo((animatedIndex * sectionWidth) - curveControlOffset, 0);
+        final double factor = 1;
 
-        final firstControlPoint = Offset((animatedIndex * sectionWidth), 0);
+        path.lineTo((animatedIndex * sectionWidth*factor) - curveControlOffset, 0);
+
+        final firstControlPoint = Offset((animatedIndex * sectionWidth*factor) , 0);
 
         final secondControlPoint =
-        Offset((animatedIndex * sectionWidth), notchHeight);
+        Offset((animatedIndex * sectionWidth*factor), notchHeight);
         final secondEndPoint = Offset(
-            (animatedIndex * sectionWidth) + curveControlOffset, notchHeight);
+            (animatedIndex * sectionWidth*factor) + curveControlOffset, notchHeight);
 
         path.cubicTo(
             firstControlPoint.dx,
@@ -40,15 +42,15 @@ class AwesomeBottomNavigationClipper extends CustomClipper<Path> {
             secondEndPoint.dx,
             secondEndPoint.dy);
 
-        path.lineTo(((animatedIndex + 1) * sectionWidth) - curveControlOffset,
+        path.lineTo(((animatedIndex + 1) * sectionWidth*factor) - curveControlOffset,
             notchHeight);
         final thirdControlPoint =
-        Offset(((animatedIndex + 1) * sectionWidth), notchHeight);
+        Offset(((animatedIndex + 1) * sectionWidth*factor), notchHeight);
 
         final fourthControlPoint =
-        Offset(((animatedIndex + 1) * sectionWidth), 0);
+        Offset(((animatedIndex + 1) * sectionWidth*factor), 0);
         final fourthEndPoint =
-        Offset(((animatedIndex + 1) * sectionWidth) + curveControlOffset, 0);
+        Offset(((animatedIndex + 1) * sectionWidth*factor) + curveControlOffset, 0);
 
         path.cubicTo(
             thirdControlPoint.dx,

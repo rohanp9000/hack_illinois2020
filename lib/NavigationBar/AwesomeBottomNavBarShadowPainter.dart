@@ -20,7 +20,7 @@ class AwesomeBottomNavBarShadowPainter extends CustomPainter {
         path.moveTo(0, 0);
 
         // Draw notch
-        final sectionWidth = size.width / numberOfTabs;
+        final sectionWidth = size.width / numberOfTabs/1.3;
 
         final curveControlOffset = sectionWidth * 0.45;
 

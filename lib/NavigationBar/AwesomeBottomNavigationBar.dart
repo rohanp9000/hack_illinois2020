@@ -188,7 +188,7 @@ class _AwesomeBottomNavigationBarState extends State<AwesomeBottomNavigationBar>
                             ? _notchPosAnimation.value
                             : selectedIndex) *
                             (_size.width / widget.icons.length),
-                        top: getCircleYPosition(),
+                        top: getCircleYPosition() + 5,
                         child: Container(
                             margin: EdgeInsets.only(left: circleLeftPadding),
                             child: SizedBox(
