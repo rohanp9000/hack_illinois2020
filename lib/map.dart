@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math';
-import 'package:search_map_place/search_map_place.dart';
-
+import 'package:geocoder/geocoder.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class Map extends StatefulWidget {
   @override
@@ -15,6 +16,9 @@ class Map extends StatefulWidget {
 class MapState extends State<Map> {
   GoogleMapController mapController;
   LatLng home = new LatLng(40.10298, -88.227419 );
+  static const kGoogleApiKey = "AIzaSyAmiskK0obvHxJ4O8zBKtl7NRf_fsQ9i-g";
+  static GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -66,7 +70,8 @@ class MapState extends State<Map> {
 
         body: Stack(
           children: <Widget>[
-            _buildGoogleMap(context),
+//            _buildGoogleMap(context),
+            _searchMap(context)
           ],
         )
 
@@ -75,6 +80,44 @@ class MapState extends State<Map> {
     );
   }
 
+  Future<Null> displayPrediction(Prediction p) async {
+    if (p != null) {
+      PlacesDetailsResponse detail =
+      await _places.getDetailsByPlaceId(p.placeId);
+
+      var placeId = p.placeId;
+      double lat = detail.result.geometry.location.lat;
+      double lng = detail.result.geometry.location.lng;
+
+      var address = await Geocoder.local.findAddressesFromQuery(p.description);
+
+      print(lat);
+      print(lng);
+    }
+  }
+
+  Widget _searchMap(BuildContext context) {
+      return Scaffold(
+          body: Container(
+              height: MediaQuery.of(context).size.height/2,
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
+              child: RaisedButton(
+                onPressed: () async {
+                  // show input autocomplete with selected mode
+                  // then get the Prediction selected
+                  Prediction p = await PlacesAutocomplete.show(
+                      context: context, apiKey: kGoogleApiKey);
+                  displayPrediction(p);
+                },
+                child: Text('Find address'),
+
+              )
+          )
+      );
+  }
+
+  @override
   Widget _buildGoogleMap(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height/2,
