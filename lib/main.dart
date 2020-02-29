@@ -1,3 +1,4 @@
+import 'package:fitness_app/map.dart';
 import 'package:fitness_app/pages/ContactsPage.dart';
 import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/welcome.dart';
@@ -17,6 +18,7 @@ class MyAppState extends State<MyApp> {
   final _pageOptions = [
     Test(),
     ContactsPage(),
+    Mapz(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class MyAppState extends State<MyApp> {
         canvasColor: Colors.white60,
           primarySwatch: Colors.blue,
           primaryTextTheme: TextTheme(
-            headline6: TextStyle(color: Colors.white),
+            title: TextStyle(color: Colors.white),
           )),
       home: Scaffold(
         body: _pageOptions[_selectedTab],
