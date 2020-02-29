@@ -9,12 +9,12 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 
 
-class Map extends StatefulWidget {
+class Mapz extends StatefulWidget {
   @override
-  MapState createState() => MapState();
+  MapzState createState() => MapzState();
 }
 
-class MapState extends State<Map> {
+class MapzState extends State<Mapz> {
   GoogleMapController mapController;
   LatLng home = new LatLng(40.10298, -88.227419 );
   static const kGoogleApiKey = "AIzaSyAmiskK0obvHxJ4O8zBKtl7NRf_fsQ9i-g";
