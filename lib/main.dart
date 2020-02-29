@@ -21,13 +21,11 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: Colors.grey,
+          primarySwatch: Colors.blue,
           primaryTextTheme: TextTheme(
-            title: TextStyle(color: Colors.white),
+            headline6: TextStyle(color: Colors.white),
           )),
       home: Scaffold(
-        appBar: AppBar(
-        ),
         body: _pageOptions[_selectedTab],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedTab,
@@ -42,11 +40,11 @@ class MyAppState extends State<MyApp> {
               title: Text('Home'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.category),
+              icon: Icon(Icons.contacts),
               title: Text('Contacts'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.settings),
               title: Text('Settings'),
             ),
           ],

@@ -71,7 +71,7 @@ class _DashboardState extends State<Test>
                             Text(
                               'Party Mode ',
                               style: TextStyle(
-                                color: Theme.of(context).accentColor,
+                                color: Colors.black,
                                 fontSize: 45,
                                 fontFamily: 'Bebas',
                                 fontWeight: FontWeight.bold,
