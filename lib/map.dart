@@ -8,6 +8,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 
+
 class Map extends StatefulWidget {
   @override
   MapState createState() => MapState();
@@ -18,6 +19,8 @@ class MapState extends State<Map> {
   LatLng home = new LatLng(40.10298, -88.227419 );
   static const kGoogleApiKey = "AIzaSyAmiskK0obvHxJ4O8zBKtl7NRf_fsQ9i-g";
   static GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+
+
 
 
   void _onMapCreated(GoogleMapController controller) {
@@ -70,7 +73,7 @@ class MapState extends State<Map> {
 
         body: Stack(
           children: <Widget>[
-//            _buildGoogleMap(context),
+            _buildGoogleMap(context),
             _searchMap(context)
           ],
         )
@@ -80,41 +83,57 @@ class MapState extends State<Map> {
     );
   }
 
-  Future<Null> displayPrediction(Prediction p) async {
-    if (p != null) {
-      PlacesDetailsResponse detail =
-      await _places.getDetailsByPlaceId(p.placeId);
+//  Future<Null> displayPrediction(Prediction p) async {
+//    if (p != null) {
+//      PlacesDetailsResponse detail =
+//      await _places.getDetailsByPlaceId(p.placeId);
+//
+//      var placeId = p.placeId;
+//      double lat = detail.result.geometry.location.lat;
+//      double lng = detail.result.geometry.location.lng;
+//
+//      var address = await Geocoder.local.findAddressesFromQuery(p.description);
+//
+//      print(lat);
+//      print(lng);
+//    }
+//  }
 
-      var placeId = p.placeId;
-      double lat = detail.result.geometry.location.lat;
-      double lng = detail.result.geometry.location.lng;
-
-      var address = await Geocoder.local.findAddressesFromQuery(p.description);
-
-      print(lat);
-      print(lng);
+  Future<Null> showDetailPlace(String placeId) async {
+    print("+++++");
+    if (placeId != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>
+            Text(placeId)),
+      );
     }
   }
 
   Widget _searchMap(BuildContext context) {
-      return Scaffold(
-          body: Container(
-              height: MediaQuery.of(context).size.height/2,
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              child: RaisedButton(
-                onPressed: () async {
-                  // show input autocomplete with selected mode
-                  // then get the Prediction selected
-                  Prediction p = await PlacesAutocomplete.show(
-                      context: context, apiKey: kGoogleApiKey);
-                  displayPrediction(p);
-                },
-                child: Text('Find address'),
+    return Container(
+      height: MediaQuery.of(context).size.height/2,
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      child: RaisedButton(
+        onPressed: () async {
+          print("button pressed");
+          // show input autocomplete with selected mode
+          // then get the Prediction selected
+          Prediction p = await PlacesAutocomplete.show(
+            context: context,
+            apiKey: kGoogleApiKey,
+            mode: Mode.overlay, // Mode.fullscreen
+            language: "en",
+            radius: 100000000);
+          showDetailPlace(p.placeId);
+        },
+        child: Text('Find address')
 
-              )
-          )
-      );
+
+        )
+    );
+
   }
 
   @override
