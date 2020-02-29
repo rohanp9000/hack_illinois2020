@@ -1,3 +1,4 @@
+import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0XFF233C63),
         fontFamily: 'Poppins',
       ),
-      home: Welcome(),
+      home: Test(),
     );
   }
 }
