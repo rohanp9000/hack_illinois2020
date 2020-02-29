@@ -1,5 +1,6 @@
 import 'package:fitness_app/pages/ContactsPage.dart';
 import 'package:fitness_app/pages/test.dart';
+import 'package:fitness_app/pages/PreferencesPage.dart';
 import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +18,7 @@ class MyAppState extends State<MyApp> {
   final _pageOptions = [
     Test(),
     ContactsPage(),
+    PreferencesPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              title: Text('Settings'),
+              title: Text('Preferences'),
             ),
           ],
         ),
