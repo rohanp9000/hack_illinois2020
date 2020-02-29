@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +18,11 @@ class _MyAppState extends State<MyApp> {
     mapController = controller;
   }
 
+  Position pos = null;
+  void getLocation() async {
+    pos = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+  }
+
   List<Marker> allMarkers = [];
 
   @override
@@ -28,12 +33,12 @@ class _MyAppState extends State<MyApp> {
       position:LatLng(40.102137, -88.236737),
       draggable:true,
       onDragEnd:((value){
-        position:LatLng(value.latitude, value.longitude);
-        print(value.latitude);
-        print(value.longitude);
+        getLocation();
+        print(pos.toString());
       }),
       onTap:(){
-        print('MarkerTapped');
+        getLocation();
+        print(pos.toString());
       },
 
     ));
