@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class ContactsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class ContactList extends StatelessWidget {
   final List<Contact> _contacts;
 
   ContactList(this._contacts);
+
 
   @override
   Widget build(BuildContext context) {

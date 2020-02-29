@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app/NavigationBar/AwesomeBottomNavigationBar.dart';
 
 class Test extends StatefulWidget {
   @override

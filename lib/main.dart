@@ -1,6 +1,6 @@
 import 'package:fitness_app/pages/ContactsPage.dart';
+import 'package:fitness_app/pages/EmergencyContacts.dart';
 import 'package:fitness_app/pages/test.dart';
-import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
@@ -15,7 +15,8 @@ class MyAppState extends State<MyApp> {
   int _selectedTab = 0;
   final _pageOptions = [
     Test(),
-    ContactsPage(),
+    EmergencyContacts(),
+    //ContactsPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryTextTheme: TextTheme(
-            headline6: TextStyle(color: Colors.white),
+            title: TextStyle(color: Colors.white),
           )),
       home: Scaffold(
         body: _pageOptions[_selectedTab],
