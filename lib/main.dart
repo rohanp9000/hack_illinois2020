@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
-            target: _center,
+            target: _center,  
             zoom: 11.0,
           ),
         ),
