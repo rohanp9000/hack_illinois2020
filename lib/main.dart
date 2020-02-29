@@ -13,15 +13,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 //  GoogleMapController mapController;
-  var geolocator = Geolocator();
-
   void _onMapCreated(GoogleMapController controller) {
 //    mapController = controller;
   }
 
   void _getCurrentLocation() async {
-    final position = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print(position);
+    final position = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.toString());
   }
 
   @override
