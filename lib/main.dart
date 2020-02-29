@@ -1,9 +1,9 @@
 import 'package:fitness_app/pages/ContactsPage.dart';
+import 'package:fitness_app/pages/EmergencyContacts.dart';
 import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/PreferencesPage.dart';
 import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(new MyApp());
 
@@ -17,7 +17,8 @@ class MyAppState extends State<MyApp> {
   int _selectedTab = 0;
   final _pageOptions = [
     Test(),
-    ContactsPage(),
+    EmergencyContacts(),
+    //ContactsPage(),
     PreferencesPage(),
   ];
   @override
@@ -27,7 +28,7 @@ class MyAppState extends State<MyApp> {
         canvasColor: Colors.white60,
           primarySwatch: Colors.blue,
           primaryTextTheme: TextTheme(
-            headline6: TextStyle(color: Colors.white),
+            title: TextStyle(color: Colors.white),
           )),
       home: Scaffold(
         body: _pageOptions[_selectedTab],

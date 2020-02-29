@@ -28,11 +28,13 @@ class EmergencyContacts extends StatelessWidget {
           children: <Widget>[
             Center(child: new EmergencyContactsList(kContacts)),
             SlidingUpPanel(
-              minHeight: 100,
+              minHeight: 65,
+              maxHeight: 260,
               panel: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 //<-- move text top
                 children: <Widget>[
+                    Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
                   Center(
                     child: Text(
                       "New Contact",
@@ -46,9 +48,16 @@ class EmergencyContacts extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      Text("NAME: "),
+                        Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                      Column(
+                          children: <Widget>[
+                              Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0),),
+
+                              Text("NAME: ", style: TextStyle(fontSize: 20),),
+                          ],
+                      ),
                       Container(
-                        width: 100.0,
+                        width: 120.0,
                         child: TextField(
                             onChanged: (text) {
                                 tempName = text;
@@ -59,7 +68,14 @@ class EmergencyContacts extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      Text("NUMBER: "),
+                        Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                        Column(
+                            children: <Widget>[
+                                Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0),),
+
+                                Text("NUMBER: ", style: TextStyle(fontSize: 20),),
+                            ],
+                        ),
                       Container(
                         width: 100.0,
                         child: TextField(
@@ -70,25 +86,24 @@ class EmergencyContacts extends StatelessWidget {
                       ),
                     ],
                   ),
-                  RaisedButton(
-                      child: Text("Add contact"),
-                      onPressed: () {
-                        addContact(tempName, tempNum);
-
-                      }
-                      //onPressed: addContact(tempName, tempNum),
-                      ),
+                  Row(
+                      children: <Widget>[
+                          Padding(padding: EdgeInsets.fromLTRB(130, 100, 0, 0),),
+                          RaisedButton(
+                              child: Text("Add contact"),
+                              onPressed: () {
+                                  addContact(tempName, tempNum);
+                                  (context as Element).markNeedsBuild();
+                              }
+                              //onPressed: addContact(tempName, tempNum),
+                          ),
+                      ],
+                  ),
                 ],
               ),
             )
           ],
         ));
-  }
-
-  printNames() {
-    for (int i = 0; i < kContacts.length; i++) {
-      print("$i " + kContacts.elementAt(i).fullName);
-    }
   }
 
   initializeName(String name) {
@@ -131,7 +146,12 @@ class _ContactListItem extends ListTile {
       : super(
           title: new Text(contact.fullName),
           subtitle: new Text(contact.phoneNumber),
-          //leading: new CircleAvatar(child: new Text(contact.fullName[0]))
+          leading: new CircleAvatar(child: new Text(contact.fullName[0])),
+            trailing: new IconButton(icon: Icon(Icons.delete), onPressed: () {
+                kContacts.remove(contact);
+                print("gagwea");
+            })
+
         );
 }
 
@@ -139,5 +159,6 @@ class Contact {
   final String fullName;
   final String phoneNumber;
 
-  const Contact({this.fullName, this.phoneNumber});
+
+  const Contact({this.fullName, this.phoneNumber, });
 }
