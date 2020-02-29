@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/NavigationBar/AwesomeBottomNavigationBar.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Test extends StatefulWidget {
   @override
@@ -21,33 +20,28 @@ class _DashboardState extends State<Test>
     fontWeight: FontWeight.normal,
   );
 
-  Animation<Color> _colorAnimation;
-  AnimationController _animationController;
-
-  final List<Color> colors = [
-    Color(0xFFEA0034),
-    Colors.blue,
-    Colors.amber,
-    Colors.deepOrange,
-    Colors.lightGreen
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
   ];
 
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    _colorAnimation = ColorTween(
-      begin: colors[_selectedIndex],
-      end: colors[1],
-    ).animate(_animationController);
-    _animationController.addListener(() {
-      setState(() {});
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,22 +133,24 @@ class _DashboardState extends State<Test>
             ),
           ),
       ),
-      bottomNavigationBar: AwesomeBottomNavigationBar(
-        bodyBackgroundColor: _colorAnimation.value,
-        icons: [
-          Icons.home,
-          Icons.people,
-          Icons.settings,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('School'),
+          ),
         ],
-        tapCallback: (int index) {
-          _animationController.reset();
-          _colorAnimation = ColorTween(
-            begin: colors[_selectedIndex],
-            end: colors[index],
-          ).animate(_animationController);
-          _animationController.forward();
-          _selectedIndex = index;
-        },
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }

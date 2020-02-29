@@ -107,7 +107,7 @@ class _AwesomeBottomNavigationBarState extends State<AwesomeBottomNavigationBar>
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ContactsPage(),
+                                        //builder: (context) => ContactsPage(),
                                     ),
                                 );
                             }
@@ -198,7 +198,7 @@ class _AwesomeBottomNavigationBarState extends State<AwesomeBottomNavigationBar>
                             ? _notchPosAnimation.value
                             : selectedIndex) *
                             (_size.width / widget.icons.length),
-                        top: getCircleYPosition() + 5,
+                        top: getCircleYPosition() + 2,
                         child: Container(
                             margin: EdgeInsets.only(left: circleLeftPadding),
                             child: SizedBox(
