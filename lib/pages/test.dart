@@ -48,13 +48,13 @@ class _DashboardState extends State<Test>
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-//        decoration: new BoxDecoration(
-////            gradient: new LinearGradient(colors: [const Color(0xFFCA436B),const Color(0xFF915FB5)],
-////                begin: FractionalOffset.topLeft,
-////                end: FractionalOffset.bottomRight,
-////                stops: [0.0,1.0],
-////                tileMode: TileMode.clamp)
-////        ),
+        decoration: new BoxDecoration(
+            gradient: new LinearGradient(colors: [const Color(0xABBA436B),const Color(0xAB235FB5)],
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                stops: [0.0,1.0],
+                tileMode: TileMode.clamp)
+        ),
         child: Padding(
             padding: EdgeInsets.fromLTRB(25, 30, 25, 25),
             child: Container(
@@ -71,7 +71,7 @@ class _DashboardState extends State<Test>
                             Text(
                               'Party Mode ',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontSize: 45,
                                 fontFamily: 'Bebas',
                                 fontWeight: FontWeight.bold,
