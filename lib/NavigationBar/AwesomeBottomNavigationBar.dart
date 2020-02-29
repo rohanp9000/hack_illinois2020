@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'AwesomeBottomNavigationClipper.dart';
 import 'Utils.dart';
 
+import 'package:fitness_app/pages/ContactsPage.dart';
+
 class AwesomeBottomNavigationBar extends StatefulWidget {
     final List<IconData> icons;
     final Color bodyBackgroundColor;
@@ -54,7 +56,7 @@ class _AwesomeBottomNavigationBarState extends State<AwesomeBottomNavigationBar>
         super.initState();
 
         _animationController = AnimationController(
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 200),
             vsync: this,
         );
 
@@ -101,6 +103,14 @@ class _AwesomeBottomNavigationBarState extends State<AwesomeBottomNavigationBar>
                     child: InkResponse(
                         onTap: () {
                             tapped(i, true);
+                            if (i == 1) {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ContactsPage(),
+                                    ),
+                                );
+                            }
                         },
                         child: Opacity(
                             opacity: getOpacityForIndex(i),
@@ -220,7 +230,7 @@ class _AwesomeBottomNavigationBarState extends State<AwesomeBottomNavigationBar>
                                 widget.icons.length,
                             ),
                             child: Container(
-                                height: kBottomNavigationBarHeight * 1.6,
+                                height: kBottomNavigationBarHeight * 1.2,
                                 width: _size.width,
                                 child: Material(
                                     color: Colors.white,

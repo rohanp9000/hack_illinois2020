@@ -1,3 +1,4 @@
+import 'package:fitness_app/pages/ContactsPage.dart';
 import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
