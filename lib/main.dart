@@ -3,21 +3,54 @@ import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+class MyAppState extends State<MyApp> {
+  int _selectedTab = 0;
+  final _pageOptions = [
+    Test(),
+    ContactsPage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Fitness App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Color(0XFF6D3FFF),
-        accentColor: Color(0XFF233C63),
-        fontFamily: 'Poppins',
+          primarySwatch: Colors.grey,
+          primaryTextTheme: TextTheme(
+            title: TextStyle(color: Colors.white),
+          )),
+      home: Scaffold(
+        appBar: AppBar(
+        ),
+        body: _pageOptions[_selectedTab],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedTab,
+          onTap: (int index) {
+            setState(() {
+              _selectedTab = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              title: Text('Contacts'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
       ),
-      home: Test(),
     );
-  }
-}
+  }}
