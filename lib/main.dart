@@ -2,6 +2,7 @@ import './map.dart';
 import './pages/ContactsPage.dart';
 import './pages/test.dart';
 import 'package:flutter/material.dart';
+import './pages/PreferencesPage.dart';
 
 void main() => runApp(new MyApp());
 
@@ -16,6 +17,7 @@ class MyAppState extends State<MyApp> {
   final _pageOptions = [
     Test(),
     ContactsPage(),
+    PreferencesPage(),
     Mapz(),
   ];
   @override
@@ -48,6 +50,12 @@ class MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               title: Text('Settings'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Map'),
+
+
             ),
           ],
         ),
