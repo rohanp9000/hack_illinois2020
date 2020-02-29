@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:fitness_app/NavigationBar/AwesomeBottomNavigationBar.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Test extends StatefulWidget {
@@ -8,7 +8,8 @@ class Test extends StatefulWidget {
   _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Test> {
+class _DashboardState extends State<Test>
+    with SingleTickerProviderStateMixin {
   bool cheese = false;
   String state = "disabled";
   bool thingy = true;
@@ -19,6 +20,34 @@ class _DashboardState extends State<Test> {
     fontFamily: 'Bebas',
     fontWeight: FontWeight.normal,
   );
+
+  Animation<Color> _colorAnimation;
+  AnimationController _animationController;
+
+  final List<Color> colors = [
+    Color(0xFFEA0034),
+    Colors.blue,
+    Colors.amber,
+    Colors.deepOrange,
+    Colors.lightGreen
+  ];
+
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _colorAnimation = ColorTween(
+      begin: colors[_selectedIndex],
+      end: colors[1],
+    ).animate(_animationController);
+    _animationController.addListener(() {
+      setState(() {});
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +132,25 @@ class _DashboardState extends State<Test> {
 
           ),
         ),
+      ),
+      bottomNavigationBar: AwesomeBottomNavigationBar(
+        bodyBackgroundColor: _colorAnimation.value,
+        icons: [
+          Icons.add,
+          Icons.delete,
+          Icons.power,
+          Icons.menu,
+          Icons.settings,
+        ],
+        tapCallback: (int index) {
+          _animationController.reset();
+          _colorAnimation = ColorTween(
+            begin: colors[_selectedIndex],
+            end: colors[index],
+          ).animate(_animationController);
+          _animationController.forward();
+          _selectedIndex = index;
+        },
       ),
     );
   }
