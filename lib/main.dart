@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'map.dart';
+import 'falldetect.dart';
+
 
 void main() => runApp(myApp());
 
@@ -13,7 +15,7 @@ class myApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xff6200ee),
       ),
-      home: Map(),
+      home: FallDetect(),
 
 
     );
