@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,21 +18,46 @@ class _MyAppState extends State<MyApp> {
     mapController = controller;
   }
 
+  List<Marker> allMarkers = [];
+
+  @override
+  void initState(){
+    super.initState();
+    allMarkers.add(Marker(
+      markerId: MarkerId('myMarker'),
+      position:LatLng(40.102137, -88.236737),
+      draggable:true,
+      onDragEnd:((value){
+        position:LatLng(value.latitude, value.longitude);
+        print(value.latitude);
+        print(value.longitude);
+      }),
+      onTap:(){
+        print('MarkerTapped');
+      },
+
+    ));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
+          title: Text('Your Location'),
+          backgroundColor: Colors.blue[700],
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
-            target: _center,  
+
+            target: LatLng(40.102137, -88.236737),
             zoom: 11.0,
           ),
+          markers: Set.from(allMarkers),
         ),
+
       ),
     );
   }
