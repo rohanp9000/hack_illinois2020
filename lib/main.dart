@@ -12,18 +12,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  GoogleMapController mapController;
+//  GoogleMapController mapController;
   var geolocator = Geolocator();
-  var locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
-
-  final LatLng _center = const LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-    StreamSubscription<Position> positionStream = geolocator.getPositionStream(locationOptions).listen(
-            (Position position) {
-          print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
-        });
+//    mapController = controller;
+  }
+
+  void _getCurrentLocation() async {
+    final position = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position);
   }
 
   @override
@@ -31,14 +29,18 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Maps Sample App'),
+          title: Text('Maps App'),
           backgroundColor: Colors.green[700],
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
+        body: Align (
+          child: Column(
+            children: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  _getCurrentLocation();
+                }, child: Text("Find Loc"),
+              )
+            ],
           ),
         ),
       ),
