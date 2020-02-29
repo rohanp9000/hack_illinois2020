@@ -53,93 +53,97 @@ class _DashboardState extends State<Test>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: Container(
+//        decoration: new BoxDecoration(
+////            gradient: new LinearGradient(colors: [const Color(0xFFCA436B),const Color(0xFF915FB5)],
+////                begin: FractionalOffset.topLeft,
+////                end: FractionalOffset.bottomRight,
+////                stops: [0.0,1.0],
+////                tileMode: TileMode.clamp)
+////        ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(25, 30, 25, 25),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.fromLTRB(0,20,0, 0),
-                  child: Align(
-                      child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Party Mode ',
-                          style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontSize: 45,
-                            fontFamily: 'Bebas',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        Padding(padding: EdgeInsets.fromLTRB(30,0,0, 0)),
-                        Column(
+            padding: EdgeInsets.fromLTRB(25, 30, 25, 25),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0,20,0, 0),
+                    child: Align(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Transform.scale(scale: 2.2,
-                                child:Switch(
-                                  value: cheese,
-                                  activeColor: Colors.green,
-                                  inactiveThumbColor: Colors.red,
-                                  inactiveTrackColor: Colors.redAccent,
-                                  onChanged: (bool newVal) {
-                                    setState(() {
-                                      bruh++;
-                                      if (bruh % 2 != 0) {
-                                        state = 'Enabled';
-                                        ye = new TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 25,
-                                          fontFamily: 'Bebas',
-                                          fontWeight: FontWeight.normal,
-                                        );
-
-                                      } else {
-                                        state = "Disabled";
-                                        ye = new TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 25,
-                                          fontFamily: 'Bebas',
-                                          fontWeight: FontWeight.normal,
-                                        );
-                                      }
-                                      cheese = newVal;
-                                    });
-                                  },
-                                )
+                            Text(
+                              'Party Mode ',
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 45,
+                                fontFamily: 'Bebas',
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            Padding(padding: EdgeInsets.fromLTRB(0,0,0,10)),
+
+                            Padding(padding: EdgeInsets.fromLTRB(30,0,0, 0)),
+                            Column(
+                              children: <Widget>[
+                                Transform.scale(scale: 2.2,
+                                    child:Switch(
+                                      value: cheese,
+                                      activeColor: Colors.green,
+                                      inactiveThumbColor: Colors.red,
+                                      inactiveTrackColor: Colors.redAccent,
+                                      onChanged: (bool newVal) {
+                                        setState(() {
+                                          bruh++;
+                                          if (bruh % 2 != 0) {
+                                            state = 'Enabled';
+                                            ye = new TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 25,
+                                              fontFamily: 'Bebas',
+                                              fontWeight: FontWeight.normal,
+                                            );
+
+                                          } else {
+                                            state = "Disabled";
+                                            ye = new TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 25,
+                                              fontFamily: 'Bebas',
+                                              fontWeight: FontWeight.normal,
+                                            );
+                                          }
+                                          cheese = newVal;
+                                        });
+                                      },
+                                    )
+                                ),
+                                Padding(padding: EdgeInsets.fromLTRB(0,0,0,10)),
+                              ],
+                            )
                           ],
                         )
-                      ],
-                    )
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 190, 0),
-                  child: Text(
-                  state,
-                  style: ye,
-                ),
-                ),
-              ],
-            ),
+                  Container(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 190, 0),
+                    child: Text(
+                      state,
+                      style: ye,
+                    ),
+                  ),
+                ],
+              ),
 
+            ),
           ),
-        ),
       ),
       bottomNavigationBar: AwesomeBottomNavigationBar(
         bodyBackgroundColor: _colorAnimation.value,
         icons: [
-          Icons.add,
-          Icons.delete,
-          Icons.power,
-          Icons.menu,
+          Icons.home,
+          Icons.people,
           Icons.settings,
         ],
         tapCallback: (int index) {
