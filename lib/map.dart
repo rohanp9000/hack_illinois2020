@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math';
-import 'package:geocoder/geocoder.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 
 
@@ -64,8 +62,10 @@ class MapzState extends State<Mapz> {
         return MaterialApp(
             home: Scaffold(
                 appBar: AppBar(
-                    title: Text('Home Location'),
-                    backgroundColor: Colors.blue[700],
+                    backgroundColor: Color.fromRGBO(37, 40, 95, 30),
+                    title: Text('Home Location',
+                        style: TextStyle(
+                            fontSize: 35, fontWeight: FontWeight.bold),),
                 ),
 
                 body: Stack(

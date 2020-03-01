@@ -12,7 +12,6 @@ class PreferencesPage extends StatelessWidget {
           title: Text("Preferences",
             style: TextStyle(
                 fontSize: 45,
-                fontFamily: 'Bebas',
                 fontWeight: FontWeight.bold
             ),),
         ),

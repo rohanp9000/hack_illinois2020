@@ -15,7 +15,6 @@ class _DashboardState extends State<Test>
   TextStyle ye = new TextStyle(
     color: Colors.red,
     fontSize: 25,
-    fontFamily: 'Bebas',
     fontWeight: FontWeight.normal,
   );
 
@@ -45,17 +44,18 @@ class _DashboardState extends State<Test>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        decoration: new BoxDecoration(
-            gradient: new LinearGradient(colors: [const Color(0xABBA436B),const Color(0xAB235FB5)],
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
-                stops: [0.0,1.0],
-                tileMode: TileMode.clamp)
-        ),
+      backgroundColor: Color.fromRGBO(37, 40, 95, 30),
+    body: Container(
+    decoration: new BoxDecoration(
+    gradient: new LinearGradient(colors: [const Color.fromRGBO(37, 40, 95, 30),
+      const Color.fromRGBO(200, 40, 95, 0)],
+    begin: FractionalOffset.topCenter,
+    end: FractionalOffset.bottomCenter,
+    tileMode: TileMode.clamp)
+    ),
+      child: Container(
         child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 30, 25, 25),
+            padding: EdgeInsets.fromLTRB(2, 40, 25, 25),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -72,7 +72,6 @@ class _DashboardState extends State<Test>
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 45,
-                                fontFamily: 'Bebas',
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -80,7 +79,7 @@ class _DashboardState extends State<Test>
                             Padding(padding: EdgeInsets.fromLTRB(30,0,0, 0)),
                             Column(
                               children: <Widget>[
-                                Transform.scale(scale: 2.2,
+                                Transform.scale(scale: 1.9,
                                     child:Switch(
                                       value: cheese,
                                       activeColor: Colors.green,
@@ -94,16 +93,14 @@ class _DashboardState extends State<Test>
                                             ye = new TextStyle(
                                               color: Colors.green,
                                               fontSize: 25,
-                                              fontFamily: 'Bebas',
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.bold,
                                             );
 
                                           } else {
                                             state = "Disabled";
                                             ye = new TextStyle(
-                                              color: Colors.red,
+                                              color: Colors.redAccent,
                                               fontSize: 25,
-                                              fontFamily: 'Bebas',
                                               fontWeight: FontWeight.normal,
                                             );
                                           }
@@ -120,7 +117,7 @@ class _DashboardState extends State<Test>
                     ),
                   ),
                   Container(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 190, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 195, 0),
                     child: Text(
                       state,
                       style: ye,
@@ -132,9 +129,6 @@ class _DashboardState extends State<Test>
             ),
           ),
       ),
-
-    );
+    )    );
   }
-
-
 }

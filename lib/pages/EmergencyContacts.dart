@@ -13,23 +13,27 @@ class EmergencyContacts extends StatelessWidget {
     myController.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          backgroundColor: Colors.black,
+            automaticallyImplyLeading: false,
+          backgroundColor: Color.fromRGBO(37, 40, 95, 30),
           title: Text(
             "Contacts",
             style: TextStyle(
-                fontSize: 45, fontFamily: 'Bebas', fontWeight: FontWeight.bold),
+                fontSize: 35, fontWeight: FontWeight.bold),
           ),
         ),
+        backgroundColor: Colors.white,
         body: Stack(
           children: <Widget>[
             Center(child: new EmergencyContactsList(kContacts)),
             SlidingUpPanel(
-              minHeight: 65,
-              maxHeight: 260,
+              minHeight: 60,
+              maxHeight: 270,
+              backdropColor: Color.fromRGBO(37, 40, 95, 30),
               panel: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 //<-- move text top
@@ -41,7 +45,6 @@ class EmergencyContacts extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
-                        fontFamily: 'Bebas',
                         fontWeight: FontWeight.normal,
                       ),
                     ),
@@ -103,7 +106,8 @@ class EmergencyContacts extends StatelessWidget {
               ),
             )
           ],
-        ));
+        ),
+    );
   }
 
   initializeName(String name) {
