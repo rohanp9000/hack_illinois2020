@@ -18,7 +18,7 @@ class MyAppState extends State<MyApp> {
   final _pageOptions = [
     Test(),
     EmergencyContacts(),
-    //ContactsPage(),
+    Test(),
     PreferencesPage(),
   ];
   @override
@@ -47,6 +47,10 @@ class MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.contacts),
               title: Text('Contacts'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              title: Text('Map'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
