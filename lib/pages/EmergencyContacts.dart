@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class EmergencyContacts extends StatelessWidget {
+class EmergencyContacts extends StatefulWidget {
+  @override
+  EmergencyContactsState createState() => EmergencyContactsState();
+}
+
+class EmergencyContactsState extends State<EmergencyContacts> {
   final myController = TextEditingController();
   final myController2 = TextEditingController();
 
