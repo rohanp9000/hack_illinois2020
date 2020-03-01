@@ -1,5 +1,7 @@
-import './map.dart';
-import './pages/ContactsPage.dart';
+import 'package:hackillinois/map.dart';
+import 'package:hackillinois/pages/EmergencyContacts.dart';
+
+import './pages/EmergencyContacts.dart';
 import './pages/test.dart';
 import 'package:flutter/material.dart';
 import './pages/PreferencesPage.dart';
@@ -16,9 +18,9 @@ class MyAppState extends State<MyApp> {
   int _selectedTab = 0;
   final _pageOptions = [
     Test(),
-    ContactsPage(),
-    PreferencesPage(),
+    EmergencyContacts(),
     Mapz(),
+    PreferencesPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class MyAppState extends State<MyApp> {
       home: Scaffold(
         body: _pageOptions[_selectedTab],
         bottomNavigationBar: BottomNavigationBar(
+          fixedColor: Colors.black,
           currentIndex: _selectedTab,
           onTap: (int index) {
             setState(() {
@@ -48,17 +51,16 @@ class MyAppState extends State<MyApp> {
               title: Text('Contacts'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
+              icon: Icon(Icons.map),
+              title: Text('Map'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              title: Text('Map'),
-
-
+              title: Text('Preferences'),
             ),
           ],
         ),
       ),
     );
-  }}
+  }
+}

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:fitness_app/NavigationBar/AwesomeBottomNavigationBar.dart';
 
 class Test extends StatefulWidget {
   @override
@@ -10,7 +9,7 @@ class Test extends StatefulWidget {
 class _DashboardState extends State<Test>
     with SingleTickerProviderStateMixin {
   bool cheese = false;
-  String state = "disabled";
+  String state = "Disabled";
   bool thingy = true;
   int bruh = 0;
   TextStyle ye = new TextStyle(
@@ -49,7 +48,7 @@ class _DashboardState extends State<Test>
       backgroundColor: Colors.white,
       body: Container(
         decoration: new BoxDecoration(
-            gradient: new LinearGradient(colors: [const Color(0xABBA436B),const Color(0xAB235FB5)],
+            gradient: new LinearGradient(colors: [const Color(0xAB235FB5),const Color(0xABBA436B)],
                 begin: FractionalOffset.topLeft,
                 end: FractionalOffset.bottomRight,
                 stops: [0.0,1.0],
@@ -72,13 +71,12 @@ class _DashboardState extends State<Test>
                             'Party Mode ',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 45,
-                              fontFamily: 'Bebas',
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
 
-                          Padding(padding: EdgeInsets.fromLTRB(30,0,0, 0)),
+                          Padding(padding: EdgeInsets.fromLTRB(0,0,30, 0)),
                           Column(
                             children: <Widget>[
                               Transform.scale(scale: 2.2,
@@ -121,7 +119,7 @@ class _DashboardState extends State<Test>
                   ),
                 ),
                 Container(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 190, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 150, 0),
                   child: Text(
                     state,
                     style: ye,
