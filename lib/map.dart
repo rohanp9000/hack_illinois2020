@@ -16,7 +16,7 @@ class Mapz extends StatefulWidget {
 
 class MapzState extends State<Mapz> {
   GoogleMapController mapController;
-  LatLng home = new LatLng(40.10298, -88.227419 );
+  static LatLng home = new LatLng(40.10298, -88.227419 );
   static const kGoogleApiKey = "AIzaSyAmiskK0obvHxJ4O8zBKtl7NRf_fsQ9i-g";
   static GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
@@ -29,25 +29,11 @@ class MapzState extends State<Mapz> {
     pos = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
-  void main() {
-    const oneSec = const Duration(seconds:1);
-    new Timer.periodic(oneSec, timer_callback);
-  }
-
-  void timer_callback(Timer t) {
-    this.getLocation();
-    LatLng curr_loc = new LatLng(pos.latitude, pos.longitude);
-
-    double dist = sqrt(pow(1852*(curr_loc.latitude - home.latitude), 2) + pow(1852*(curr_loc.longitude - home.longitude), 2));
-    print(dist);
-  }
-
   List<Marker> allMarkers = [];
 
   @override
   void initState() {
     super.initState();
-    main();
     allMarkers.add(Marker(
       markerId: MarkerId('myMarker'),
       position: LatLng(40.102137, -88.236737),

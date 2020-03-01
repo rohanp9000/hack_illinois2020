@@ -1,5 +1,14 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hackillinois/map.dart';
+import 'package:vibration/vibration.dart';
+import 'package:sms/sms.dart';
+import 'package:toast/toast.dart';
 
 class Test extends StatefulWidget {
   @override
@@ -20,6 +29,7 @@ class _DashboardState extends State<Test>
   );
 
   int _selectedIndex = 0;
+  LatLng home = MapzState.home;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
@@ -41,6 +51,8 @@ class _DashboardState extends State<Test>
       _selectedIndex = index;
     });
   }
+
+  int numIters = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +101,8 @@ class _DashboardState extends State<Test>
                                       setState(() {
                                         bruh++;
                                         if (bruh % 2 != 0) {
+                                          locUpdater();
+                                          numIters = 0;
                                           state = 'Enabled';
                                           ye = new TextStyle(
                                             color: Colors.green,
@@ -98,6 +112,7 @@ class _DashboardState extends State<Test>
                                           );
 
                                         } else {
+                                          numIters = 6;
                                           state = "Disabled";
                                           ye = new TextStyle(
                                             color: Colors.red,
@@ -135,5 +150,86 @@ class _DashboardState extends State<Test>
     );
   }
 
+  void locUpdater() {
+    print("Party starting");
+    const oneSec = const Duration(seconds:3);
+    new Timer.periodic(oneSec, timer_callback);
+  }
+
+  Position pos;
+  void getLocation() async {
+    pos = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+  }
+
+  double currDist = 0;
+  LatLng curr_loc;
+  void timer_callback(Timer t) {
+    print("One timer cycle");
+    this.getLocation();
+    curr_loc = new LatLng(pos.latitude, pos.longitude);
+
+    double dist = sqrt(pow(1852*(curr_loc.latitude - home.latitude), 2) + pow(1852*(curr_loc.longitude - home.longitude), 2));
+
+    if (dist > 10 && currDist > 10) {
+      numIters++;
+      if (numIters == 5) {
+        print("You're fucked");
+        triggerAlert();
+      }
+    } else {
+      numIters = 0;
+    }
+    currDist = dist;
+  }
+
+  static final int ALERT_TIME = 5000;
+  void triggerAlert() {
+    Vibration.vibrate(duration: ALERT_TIME, amplitude: 255);
+    _showDialog();
+  }
+
+  void reset() {}
+
+  static final String locUrl = "https://www.google.com/maps/search/?api=1&query=";
+  void sendText() {
+    print('send text');
+
+    SmsSender sender = new SmsSender();
+
+    SmsMessage message = new SmsMessage('0000000000', "Rohan Prasad is drunk again. Please pick him/her up from " +
+                locUrl + curr_loc.latitude.toString() + "," + curr_loc.longitude.toString());
+    sender.sendSms(message);
+
+    message.onStateChanged.listen((state) {
+      if (state == SmsMessageState.Sent) {
+        Toast.show("Sent Text", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+      }
+    });
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 5), () {
+          Navigator.of(context).pop();
+          sendText();
+        });
+        return AlertDialog(
+          title: new Text("Confirmation"),
+          content: new Text("Sending text in 5..."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                reset();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 }
