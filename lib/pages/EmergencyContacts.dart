@@ -125,7 +125,7 @@ List<Contact> kContacts = <Contact>[
 ];
 
 class EmergencyContactsList extends StatelessWidget {
-  final List<Contact> _contacts;
+  List<Contact> _contacts;
 
   EmergencyContactsList(this._contacts);
 
@@ -134,7 +134,9 @@ class EmergencyContactsList extends StatelessWidget {
     return new ListView.builder(
       padding: new EdgeInsets.symmetric(vertical: 8.0),
       itemBuilder: (context, index) {
-        return new _ContactListItem(_contacts[index]);
+          try {
+              return new _ContactListItem(_contacts[index], context);
+          } catch(e){}
       },
       itemCount: _contacts.length,
     );
@@ -142,14 +144,15 @@ class EmergencyContactsList extends StatelessWidget {
 }
 
 class _ContactListItem extends ListTile {
-  _ContactListItem(Contact contact)
+  _ContactListItem(Contact contact, BuildContext context)
       : super(
           title: new Text(contact.fullName),
           subtitle: new Text(contact.phoneNumber),
           leading: new CircleAvatar(child: new Text(contact.fullName[0])),
             trailing: new IconButton(icon: Icon(Icons.delete), onPressed: () {
+
                 kContacts.remove(contact);
-                print("gagwea");
+                (context as Element).markNeedsBuild();
             })
 
         );
@@ -158,7 +161,6 @@ class _ContactListItem extends ListTile {
 class Contact {
   final String fullName;
   final String phoneNumber;
-
 
   const Contact({this.fullName, this.phoneNumber, });
 }
