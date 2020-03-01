@@ -2,6 +2,7 @@ import 'package:fitness_app/pages/EmergencyContacts.dart';
 import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/PreferencesPage.dart';
 import 'package:flutter/material.dart';
+import 'map.dart';
 
 void main() => runApp(new MyApp());
 
@@ -16,7 +17,7 @@ class MyAppState extends State<MyApp> {
   final _pageOptions = [
     Test(),
     EmergencyContacts(),
-    Test(),
+    Mapz(),
     PreferencesPage(),
   ];
   @override
