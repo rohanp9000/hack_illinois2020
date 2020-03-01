@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:math';
-import 'package:geocoder/geocoder.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:hackillinois/pages/EmergencyContacts.dart';
 
 
 class Mapz extends StatefulWidget {
@@ -20,6 +18,19 @@ class MapzState extends State<Mapz> {
   static const kGoogleApiKey = "AIzaSyAmiskK0obvHxJ4O8zBKtl7NRf_fsQ9i-g";
   static GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
+  static void setNewHome(double lat, double lon) {
+    home = new LatLng(lat, lon);
+    allMarkers.removeLast();
+    allMarkers.add(Marker(
+      markerId: MarkerId('myMarker'),
+      position: LatLng(lat, lon),
+      draggable:true,
+      onDragEnd:((value) {
+        home = new LatLng(value.latitude, value.longitude);
+      }),
+    ));
+  }
+
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -29,7 +40,7 @@ class MapzState extends State<Mapz> {
     pos = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
-  List<Marker> allMarkers = [];
+  static List<Marker> allMarkers = [];
 
   @override
   void initState() {
@@ -42,7 +53,9 @@ class MapzState extends State<Mapz> {
         home = new LatLng(value.latitude, value.longitude);
       }),
     ));
-
+    while (allMarkers.length > 1) {
+      allMarkers.removeLast();
+    }
   }
 
   @override
@@ -82,6 +95,7 @@ class MapzState extends State<Mapz> {
             draggable:val,
             onDragEnd:((value) {
               home = new LatLng(value.latitude, value.longitude);
+              EmergencyContactsState.updateLatLon();
             }),
           ));
         },

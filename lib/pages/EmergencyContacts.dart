@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackillinois/map.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class EmergencyContacts extends StatefulWidget {
@@ -10,6 +12,8 @@ class EmergencyContactsState extends State<EmergencyContacts> {
   final myController = TextEditingController();
   final myController2 = TextEditingController();
 
+  static SharedPreferences prefs;
+
   String tempName;
   String tempNum;
 
@@ -20,6 +24,7 @@ class EmergencyContactsState extends State<EmergencyContacts> {
 
   @override
   Widget build(BuildContext context) {
+    onCreate();
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.black,
@@ -122,6 +127,19 @@ class EmergencyContactsState extends State<EmergencyContacts> {
   addContact(String name, String number) {
     kContacts.add(Contact(fullName: name, phoneNumber: number));
   }
+
+  void onCreate() async {
+    prefs = await SharedPreferences.getInstance();
+    double latitude = prefs.get('latitude') == null ? 0 : double.parse(prefs.get('latitude'));
+    double longitude = prefs.get('longitude') == null ? 0 : double.parse(prefs.get('longitude'));
+    MapzState.setNewHome(latitude, longitude);
+  }
+
+  static void updateLatLon() {
+    prefs.setString("latitude", MapzState.home.latitude.toString());
+    prefs.setString("longitude", MapzState.home.longitude.toString());
+  }
+
 }
 
 List<Contact> kContacts = <Contact>[
