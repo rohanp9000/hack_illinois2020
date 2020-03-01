@@ -1,8 +1,6 @@
-import 'package:fitness_app/pages/ContactsPage.dart';
 import 'package:fitness_app/pages/EmergencyContacts.dart';
 import 'package:fitness_app/pages/test.dart';
 import 'package:fitness_app/pages/PreferencesPage.dart';
-import 'package:fitness_app/pages/welcome.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
@@ -33,6 +31,7 @@ class MyAppState extends State<MyApp> {
       home: Scaffold(
         body: _pageOptions[_selectedTab],
         bottomNavigationBar: BottomNavigationBar(
+          fixedColor: Colors.black,
           currentIndex: _selectedTab,
           onTap: (int index) {
             setState(() {
